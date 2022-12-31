@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css" />
+        <link rel="stylesheet" type="text/css" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/label.css" />
+        <link rel="stylesheet" href="css/MarkerCluster.css" />
+        <link rel="stylesheet" href="css/MarkerCluster.Default.css" />
+        <link rel="stylesheet" href="css/Control.OSMGeocoder.css" />
+        <link rel="stylesheet" href="css/leaflet.draw.css" />
+        <link rel="stylesheet" href="css/leaflet.measurecontrol.css" />
+		<link rel="stylesheet" href="css/leaflet-routing-machine.css" />
+		<link rel="stylesheet" href="css/font-awesome.min.css"/>
+		<link rel="stylesheet" href="css/leaflet.zoomhome.css" />
+		<link rel="stylesheet" href="css/index.css" />
+		<link rel="stylesheet" href="css/leaflet-gps.css" />
+		<link rel="stylesheet" href="css/leaflet-gps.min.css" />
+		<link rel="stylesheet" href="css/leaflet-gps.src.css" />
+		<link rel="stylesheet" href="css/leaflet-compass.css" />
+		
+		
+        <script src="js/leaflet.js"></script>
+        <script src="js/OSMBuildings-Leaflet.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/label.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/Control.OSMGeocoder.js"></script>
+        <script src="js/leaflet.draw.js"></script>
+        <script src="js/leaflet.measurecontrol.js"></script>
+        <script src="js/leaflet.markercluster.js"></script>
+		<script src="js/leaflet.zoomhome.min.js"></script>
+		<script src="js/jquery-1.11.2.min.js"></script>
+        <script src="js/proj4.js"></script>
+        <script src="js/proj4leaflet.js"></script>
+		<script src="js/leaflet-gps.js"></script>
+		<script src="js/leaflet-gps.min.js"></script>
+		<script src="js/leaflet-gps.src.js"></script>
+		<script src="js/leaflet-compass.js"></script>
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title>ATM in Mysuru</title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="data/json_ATM0.js"></script>
+		<script src="dist/Control.Geocoder.js"></script>
+		<script src="dist/leaflet-routing-machine.js"></script>
+		<script src="js/leaflet-gps.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+
+            if (e.target.feature.geometry.type === 'LineString') {
+              highlightLayer.setStyle({
+                color: '#ffff00',
+              });
+            } else {
+              highlightLayer.setStyle({
+                fillColor: '#ffff00',
+                fillOpacity: 1
+              });
+            }
+        }
+        L.ImageOverlay.include({
+            getBounds: function () {
+                return this._bounds;
+            }
+        });
+        var map = L.map('map', {
+            measureControl:true,
+			dragging: true,
+			touchZoom:true,
+			Boxzoom: true,
+			trackResize: true,
+			keyboard: true,
+            zoomControl:false, maxZoom:28, minZoom:1	//changed
+        }).fitBounds([[12.266093832,76.5758715924],[12.343716237,76.7146129001]]);
+		
+		var zoomHome = L.Control.zoomHome();
+		var zoomHome = L.Control.zoomHome({position: 'topleft'});
+		zoomHome.addTo(map);
+
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        var feature_group = new L.featureGroup([]);
+        var bounds_group = new L.featureGroup([]);
+        var raster_group = new L.LayerGroup([]);
+        var basemap0 = L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 28
+        });
+        basemap0.addTo(map);
+        var basemap1 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 28
+        });
+        basemap1.addTo(map);
+        var basemap2 = L.tileLayer('http://a.tile.stamen.com/toner/{z}/{x}/{y}.png', {
+            attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>,<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Mapdata: &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 28
+        });
+        basemap2.addTo(map);
+        var basemap3 = L.tileLayer('http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 28
+        });
+        basemap3.addTo(map);
+        var basemap4 = L.tileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>,Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>',
+            maxZoom: 28
+        });
+        basemap4.addTo(map);
+        var basemap5 = L.tileLayer('http://otile1.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg', {
+            attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash;Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture,Farm Service Agency',
+            maxZoom: 28
+        });
+        basemap5.addTo(map);
+        var initialOrder = new Array();
+        var layerOrder = new Array();
+        function stackLayers() {
+            for (index = 0; index < initialOrder.length; index++) {
+                map.removeLayer(initialOrder[index]);
+                map.addLayer(initialOrder[index]);
+            }
+            map.setMaxBounds(map.getBounds());
+        }
+        function restackLayers() {
+            for (index = 0; index < layerOrder.length; index++) {
+                layerOrder[index].bringToFront();
+            }
+        }
+        layerControl = L.control.layers({},{},{collapsed:true}); //changed
+        function pop_ATM0(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    layer.setStyle(doStyleATM0(feature));
+
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table><tr><th scope="row">name</th><td>' + (feature.properties['name'] !== null ? Autolinker.link(String(feature.properties['name'])) : '') + '</td></tr></table>';
+            layer.bindPopup(popupContent);
+        }
+
+        var svgATM0 = L.icon({
+            iconUrl: 'markers/barrier_toll_booth.svg',
+            iconSize: [22.8, 22.8], // size of the icon
+        });
+
+        function doStyleATM0() {
+            return {
+                icon: svgATM0
+            }
+        }
+        function doPointToLayerATM0(feature, latlng) {
+            return L.marker(latlng, doStyleATM0())
+        }
+        var json_ATM0JSON = new L.geoJson(json_ATM0, {
+            onEachFeature: pop_ATM0, 
+            pointToLayer: doPointToLayerATM0
+            });
+        layerOrder[layerOrder.length] = json_ATM0JSON;
+
+        bounds_group.addLayer(json_ATM0JSON);
+        initialOrder[initialOrder.length] = json_ATM0JSON;
+        feature_group.addLayer(json_ATM0JSON);
+        raster_group.addTo(map);
+        feature_group.addTo(map);
+        var osmGeocoder = new L.Control.OSMGeocoder({
+            collapsed: false,
+            position: 'topright',
+            text: 'Search',
+        });
+        osmGeocoder.addTo(map);
+        var baseMaps = {'OSM B&W': basemap0, 'OSM': basemap1, 'Stamen Toner': basemap2, 'OSM DE': basemap3, 'OSM HOT': basemap4, 'MapQuest Aerial': basemap5};
+        L.control.layers(baseMaps,{'<img src="legend/ATM0.png" /> ATM': json_ATM0JSON,},{collapsed:false}).addTo(map);
+        map.locate({setView: true, maxZoom: 16});
+        function onLocationFound(e) {
+            var radius = e.accuracy / 2;
+            L.marker(e.latlng).addTo(map)
+            .bindPopup("You are within " + radius + " meters from this point")
+            .openPopup();
+            L.circle(e.latlng, radius).addTo(map);
+        }
+        map.on('locationfound', onLocationFound);
+        L.control.scale({options: {position: 'bottomleft', maxWidth: 100, metric: true, imperial: false, updateWhenIdle: false}}).addTo(map);
+        stackLayers();
+        map.on('overlayadd', restackLayers);
+		
+		var control = L.Routing.control({
+	waypoints: [
+		L.latLng(12.307,76.617),
+		L.latLng(12.302,76.639)
+	],
+	geocoder: L.Control.Geocoder.nominatim(),
+    routeWhileDragging: true,
+    reverseWaypoints: true,
+    showAlternatives: true,
+    altLineOptions: {
+        styles: [
+            {color: 'black', opacity: 0.15, weight: 9},
+            {color: 'white', opacity: 0.8, weight: 6},
+            {color: 'blue', opacity: 0.5, weight: 2}
+        ]
+    }
+}).addTo(map);
+
+L.Routing.errorControl(control).addTo(map);
+
+//var tinnedGps = { lat: 12.3049, lng: 76.6285 };
+//map.addControl( new L.Control.Gps( { transform: function(realGps) { return tinnedGps; } ));
+//map.addControl( new L.Control.Gps() );
+map.addControl( new L.Control.Gps({autoActive:true}) );
+
+map.addControl( new L.Control.Compass() );
+		
+        </script>
+    </body>
+</html>

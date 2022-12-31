@@ -1,0 +1,152 @@
+<?php
+include("databaseconnection.php"); 
+?>
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Cultural Heritage Mysuru City - TIS</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link href="css/slider.css" rel="stylesheet" type="text/css" media="all"/>
+<link href="css/bootstrap.min.cs" rel="stylesheet" type="text/css" media="all"/>
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
+<link href="css/font-awesome.cs" rel="stylesheet" type="text/css" media="all"/>
+<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+<style>
+    #map
+    {
+      height:90vh;
+    } 
+    .checked {
+       color: orange;
+    }
+  </style>
+</head>
+<body>
+<div class="header">
+<div class="wrap">
+<div class="logo"><a href="index.html"><img src="images/logo.png" alt="" /></a></div>
+ <div class="con-right">
+			<div class="grid1-l-img">
+				<img src="images/contact.png" alt="">
+			</div>
+			
+			 
+			<div class="clear"></div>
+</div>
+    <div class="clear"></div>
+     </div> 
+</div>
+<div class="header-bottom">
+    	<div class="wrap">
+    		<ul id="nav">
+                <li><a href="index.php">Home</a></li>
+                <li><a class="hsubs" href="#">About</a>
+				<ul class="subs">
+                        <li><a href="Mysore.php">History of City</a></li>
+                        <li><a href="TIS.html">Tourism Information System</a></li>
+                       
+                    </ul>
+				</li>
+				<li><a class="hsubs" href="#">Destinations</a>
+				 <ul class="subs">
+                        <li><a href="TouristPlaces.php">Tourist Places</a></li>
+                        <li><a href="HeritageBuildings.php">Heritage Buildings</a></li>
+                        <li><a href="YogaCenters.php">Yoga Centers</a></li>
+                    </ul>
+				</li>	
+				<li><a class="hsubs" href="#">Accommodations</a>
+				 <ul class="subs">
+                        <li><a href="Hotels.php">Hotels</a></li>
+                        <li><a href="Restaurants.php">Restaurants</a></li>
+                        <li><a href="HomeStays.php">Home Stays</a></li>
+                    </ul>
+				</li>	
+                <li><a class="hsubs" href="#">Heritage</a>
+					<ul class="subs">
+                        <li><a href="walk1.php">Walk 1</a></li>
+						<li><a href="walk2.php">Walk 2</a></li>
+						<li><a href="walk3.php">Walk 3</a></li>
+                        <li><a href="walk4.php">Walk 4</a></li>
+                        <li><a href="walk5.php">Walk 5</a></li>
+                    </ul>
+				</li>
+				<li><a class="hsubs" href="#">Users</a>
+					<ul class="subs">
+                        <li><a href="login.php">Login</a></li>
+						<li><a href="register.php">Register</a></li>	
+                    </ul>
+				</li>
+        </ul>
+       </div>
+</div>
+<div class="header-banner">
+<div class="wrap" style="padding:15px">
+	 
+</div>
+
+	       </div>                                        
+	</div>
+    <div class="clear"></div>
+      </div>
+      	<div class="clear"></div>
+      </div>
+      </div>
+     <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="con-top">
+
+                    <h3>Intelligent Toursim Information System</h3>
+                </div>
+                <div class="col-lg-12" >
+               
+                <div class="box1">
+                                
+                                 <div class="">
+                                 	<h4>Details</h4>
+                                 	<div class="box">
+                                    
+                                    
+                                      <div class="">
+                                      	<p>Tourism has turned out to be an economic booster contributing to the economic development of many countries over the last few decades. Tourism is one of the domains that contribute 7 per cent of our country's economy and proper designing and development of the applications can increase the percentage of growth towards contribution to the country’s economy. The need for a tourism management systemthat can manage tourism information with ease is sought after by every Country and State stakeholders.The main purpose is to provide the details of hidden tourist places, heritage buildings, yoga centers, hotels, restraunts, homestays in Mysore City. Intelligent Toursim Information system is not only designed to keep data and records of toursist places, but also to help tourist and foreigner find shortest walk path to visit all heritage buildings</p>
+                                      </div> 
+										<div class="">
+                                      	<p>Create account for free and get access to the data and download the toursit places information with one click</p>
+											<a class="btn btn-primary" href="register.php">Click here to register free</a>
+                                      </div>
+                                        </br>
+                                        </hr>
+                                       
+                             
+                 </div>
+                 </div>
+                 </div>
+            </div>
+         </div>
+</div>
+<div class="footer-bottom">
+<div class="wrap">	
+	<div class="copy">
+		<p> Centre for Geoinformatics Technology, Department of Geography, University of Mysore &copy; 2016 All rights Reserved | Project by <a href="mailto:tourisminformationsystemmys@gmail.com">Manjunatha R</a></p>
+	</div>
+ </div>
+</div>
+  
+  <script src="/js/leaflet-0.7.2/leaflet.ajax.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/script.js"></script>
+<script type="text/javascript" src="js/MovingMarker.js"></script>
+    
+</body>
+</html>
+
